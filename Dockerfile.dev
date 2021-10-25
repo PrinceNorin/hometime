@@ -1,0 +1,12 @@
+FROM ruby:2.7.1
+
+RUN apt update && \
+  apt install -y build-essential libpq-dev
+
+COPY ./entrypoint.sh /tmp
+RUN chmod +x /tmp/entrypoint.sh && \
+  mv /tmp/entrypoint.sh /usr/local/bin/hometime
+
+WORKDIR /app
+
+CMD ["hometime"]
