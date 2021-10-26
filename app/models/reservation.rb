@@ -1,10 +1,15 @@
 class Reservation < ApplicationRecord
+  # More status according to business requirement
+  STATUSES = { accepted: 0, cancelled: 1 }
+  enum status: STATUSES
+
   belongs_to :guest
 
   validates :start_date, presence: true, date: true
   validates :end_date, presence: true, date: true
   validates :code, presence: true, uniqueness: true
 
+  # Store moeny as integer of the lowest denomination
   validates :payout_amount,
     presence: true,
     numericality: true
