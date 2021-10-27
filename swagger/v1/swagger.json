@@ -1,0 +1,192 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/v1/reservations": {
+      "post": {
+        "summary": "create reservation",
+        "tags": [
+          "Reservations"
+        ],
+        "description": "Create or updating a reservation.",
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Reservation saved"
+          },
+          "422": {
+            "description": "Invalid payload"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/air_bnb"
+                  },
+                  {
+                    "$ref": "#/components/schemas/booking"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://{defaultHost}",
+      "variables": {
+        "defaultHost": {
+          "default": "localhost:3000"
+        }
+      }
+    }
+  ],
+  "components": {
+    "schemas": {
+      "air_bnb": {
+        "type": "object",
+        "properties": {
+          "reservation_code": {
+            "type": "string"
+          },
+          "start_date": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": "string"
+          },
+          "nights": {
+            "type": "integer"
+          },
+          "guests": {
+            "type": "integer"
+          },
+          "adults": {
+            "type": "integer"
+          },
+          "children": {
+            "type": "integer"
+          },
+          "infants": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          },
+          "guest": {
+            "type": "object",
+            "properties": {
+              "first_name": {
+                "type": "string"
+              },
+              "last_name": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              }
+            }
+          },
+          "currency": {
+            "type": "string"
+          },
+          "payout_price": {
+            "type": "string"
+          },
+          "security_price": {
+            "type": "string"
+          },
+          "total_price": {
+            "type": "string"
+          }
+        }
+      },
+      "booking": {
+        "type": "object",
+        "properties": {
+          "reservation": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "start_date": {
+                "type": "string"
+              },
+              "end_date": {
+                "type": "string"
+              },
+              "expected_payout_amount": {
+                "type": "string"
+              },
+              "guest_details": {
+                "type": "object",
+                "properties": {
+                  "localized_description": {
+                    "type": "string"
+                  },
+                  "number_of_adults": {
+                    "type": "integer"
+                  },
+                  "number_of_children": {
+                    "type": "integer"
+                  },
+                  "number_of_infants": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "guest_email": {
+                "type": "string"
+              },
+              "guest_first_name": {
+                "type": "string"
+              },
+              "guest_last_name": {
+                "type": "string"
+              },
+              "guest_phone_numbers": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "listing_security_price_accurate": {
+                "type": "string"
+              },
+              "host_currency": {
+                "type": "string"
+              },
+              "nights": {
+                "type": "integer"
+              },
+              "number_of_guests": {
+                "type": "integer"
+              },
+              "status_type": {
+                "type": "string"
+              },
+              "total_paid_amount_accurate": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -17,6 +17,9 @@ class ApplicationController < ActionController::API
   end
 
   def render_invalid_payload
-    render json: { code: 400, error: 'invalid payload' }, status: :bad_request
+    render json: {
+      code: 422,
+      error: 'invalid payload'
+    }, status: :unprocessable_entity
   end
 end

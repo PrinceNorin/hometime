@@ -8,6 +8,7 @@ class Reservation < ApplicationRecord
   validates :start_date, presence: true, date: true
   validates :end_date, presence: true, date: true
   validates :code, presence: true, uniqueness: true
+  validates :status, inclusion: { in: STATUSES.keys.map(&:to_s) }
 
   # Store moeny as integer of the lowest denomination
   validates :payout_amount,
@@ -25,6 +26,14 @@ class Reservation < ApplicationRecord
   validates_numericality_of :number_of_adults, :number_of_children, :number_of_infants
 
   validate :valid_reservation_date
+
+  # enum raise ArgumentError, override this let 'inclusion'
+  # validation to run so we can get a nice error message
+  def status=(value)
+    super value
+  rescue ArgumentError
+    super nil
+  end
 
   private
 

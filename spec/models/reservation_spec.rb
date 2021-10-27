@@ -18,6 +18,7 @@ RSpec.describe Reservation, type: :model do
   it { is_expected.to validate_numericality_of(:security_amount) }
   it { is_expected.to validate_presence_of(:total_amount) }
   it { is_expected.to validate_numericality_of(:total_amount) }
+  it { is_expected.to validate_inclusion_of(:status).in_array %w(accepted cancelled) }
 
   describe '#end_date' do
     it 'should be greater than #start_date' do
