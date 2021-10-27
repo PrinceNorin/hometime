@@ -1,24 +1,56 @@
-# README
+# Start application with Docker
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+1. Follow the instruction on how to install [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/)
 
-Things you may want to cover:
+2. Update `.env` file
+```SH
+$ cp .env.sample .env
+```
 
-* Ruby version
+```
+DATABASE_URL=postgresql://hometime:secret123@postgres?sslmode=disable
+```
 
-* System dependencies
+3. Start development server
+```SH
+$ docker-compose up
+```
 
-* Configuration
+4. Create & migrate database
+```SH
+$ docker-compose exec hometime bundle exec rake db:create
+$ docker-compose exec hometime bundle exec rake db:migrate
+```
 
-* Database creation
+# Or setting up manually
+1. Install Ruby 2.7.1, it is recommended to use version manager like `rvm` or `rbenv` to manage multiple ruby versions
+2. Install PostgreSQL server and it's development library a.k.a `libpq-dev` on Debian or Ubuntu
+3. Update `.env` file
+```SH
+$ cp .env.sample .env
+```
 
-* Database initialization
+Change `username` and `password` to your postgres user and password
+```
+DATABASE_URL=postgresql://[username]:[password]@localhost?sslmode=disable
+```
 
-* How to run the test suite
+5. Install gem & dependencies
+```SH
+$ gem install bundler # skip if you already have bundler installed
+$ bundle install
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+4. Create & migrate database
+```SH
+$ rake db:create
+$ rake db:migrate
+```
 
-* Deployment instructions
+5. Start development server
+```SH
+$ rails s
+```
 
-* ...
+# Test API Endpoint
+Open the web browser and go to `http://localhost:3000/docs`, the endpoint is documented using swagger ui.
